@@ -4,9 +4,113 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:EmployeeManagement.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:viewModel="clr-namespace:EmployeeManagement.ViewModel"
     mc:Ignorable="d"
     Height="450" Width="800">
+
+    <Window.DataContext>
+        <viewModel:DashboardViewModel />
+    </Window.DataContext>
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="290" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.ColumnSpan="2"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+            Text="Список сотрудников"
+            TextAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="White"
+            Background="{StaticResource PrimaryHueLightBrush}" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,0,0,0">
+            <Button
+                Style="{StaticResource MaterialDesignFlatLightBgButton}"
+                Command="{Binding OpenNewEmployeeWindowCommand}"
+                Content="Добавить сотрудника" Width="180" />
+
+            <Button
+                VerticalAlignment="Center"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Command="{Binding RefreshEmployeesCommand}"
+                Margin="10,0,0,0">
+                <materialDesign:PackIcon Kind="Refresh" />
+            </Button>
+        </StackPanel>
+
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+            <TextBlock
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="0,0,10,0"
+                Text="{Binding User.Login, StringFormat=Вы вошли под логином: {0}}" />
+
+            <Button
+                VerticalAlignment="Center"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
+                <materialDesign:PackIcon Kind="Account" />
+            </Button>
+        </StackPanel>
+
+        <ListView x:Name="EmployeesListView" Grid.ColumnSpan="2" Grid.Row="2" ItemsSource="{Binding Employees}"
+            SelectedItem="{Binding SelectedEmployee}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1} {2}">
+                                        <Binding Path="LastName" />
+                                        <Binding Path="FirstName" />
+                                        <Binding Path="Patronymic" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <TextBlock Text="{Binding Specialization.Name, StringFormat=Должность: {0}}"
+                                Margin="0 10 0 0" />
+
+                            <Button
+                                Content="Удалить"
+                                Style="{StaticResource MaterialDesignFlatLightBgButton}"
+                                Width="120"
+                                Command="{Binding Source={x:Reference EmployeesListView},
+                                    Path=DataContext.DeleteEmployeeCommand}"
+                                CommandParameter="{Binding Id}"
+                                HorizontalAlignment="Left"
+                                Margin="0 10 0 0" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button
+            Grid.Row="2"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left"
+            Margin="30,0,0,30"
+            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+            Command="{Binding SignOutCommand}">
+            <materialDesign:PackIcon Kind="Logout" />
+        </Button>
     </Grid>
 </local:BaseWindow>

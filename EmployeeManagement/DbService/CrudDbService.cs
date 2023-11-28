@@ -8,7 +8,11 @@ namespace EmployeeManagement.DbService;
 
 internal class CrudDbService<TId, TEntity>(DbContext context) : IDisposable where TEntity : class
 {
-    public async Task<List<TEntity>> GetAllAsync() => await context.Set<TEntity>().ToListAsync();
+    public async Task<List<TEntity>> GetAllAsync() =>
+        await context.Set<TEntity>().ToListAsync();
+
+    public async Task<List<TEntity>> GetAllAsync(string include) =>
+        await context.Set<TEntity>().Include(include).ToListAsync();
 
     public async Task<TEntity> GetAsync(TId id) => await FindByIdAsync(id);
 
