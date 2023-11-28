@@ -6,38 +6,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.DbService;
 
-internal class CrudDbService<TId, TEntity> : IDisposable where TEntity : class
+internal class CrudDbService<TId, TEntity>(DbContext context) : IDisposable where TEntity : class
 {
-    private readonly DbContext _context;
-
-    public CrudDbService(DbContext context) => _context = context;
-
-    public async Task<List<TEntity>> GetAllAsync() => await _context.Set<TEntity>().ToListAsync();
+    public async Task<List<TEntity>> GetAllAsync() => await context.Set<TEntity>().ToListAsync();
 
     public async Task<TEntity> GetAsync(TId id) => await FindByIdAsync(id);
 
     public async Task<TEntity> CreateAsync(TEntity entity)
     {
-        var result = _context.Set<TEntity>().Add(entity);
-        await _context.SaveChangesAsync();
+        var result = context.Set<TEntity>().Add(entity);
+        await context.SaveChangesAsync();
 
         return result.Entity;
     }
 
     public async Task UpdateAsync(TEntity entity)
     {
-        _context.Update(entity);
-        await _context.SaveChangesAsync();
+        context.Update(entity);
+        await context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(TId id)
     {
-        _context.Set<TEntity>().Remove(await FindByIdAsync(id));
-        await _context.SaveChangesAsync();
+        context.Set<TEntity>().Remove(await FindByIdAsync(id));
+        await context.SaveChangesAsync();
     }
 
     private async Task<TEntity> FindByIdAsync(TId id) =>
-        await _context.FindAsync<TEntity>(id) ?? throw new EntityNotFound();
+        await context.FindAsync<TEntity>(id) ?? throw new EntityNotFound();
 
-    public void Dispose() => _context.Dispose();
+    public void Dispose() => context.Dispose();
 }
