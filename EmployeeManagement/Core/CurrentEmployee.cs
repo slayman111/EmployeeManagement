@@ -2,7 +2,7 @@
 
 namespace EmployeeManagement.Core;
 
-public class CurrentEmployee
+public static class CurrentEmployee
 {
     public static Employee? Employee { get; set; }
 

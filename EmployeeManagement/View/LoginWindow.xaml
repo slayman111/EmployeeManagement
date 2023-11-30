@@ -6,6 +6,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:viewModel="clr-namespace:EmployeeManagement.ViewModel"
     xmlns:local="clr-namespace:EmployeeManagement.View"
+    xmlns:behaviors="clr-namespace:EmployeeManagement.Core.Behaviors"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     mc:Ignorable="d"
     Height="450" Width="350">
 
@@ -45,9 +47,12 @@
                 FontSize="18"
                 Margin="0,20,0,0"
                 materialDesign:HintAssist.Hint="Пароль"
-                PasswordChanged="PasswordChanged"
                 Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
-                materialDesign:TextFieldAssist.HasClearButton="False" />
+                materialDesign:TextFieldAssist.HasClearButton="False">
+                <b:Interaction.Behaviors>
+                    <behaviors:PasswordBehavior Password="{Binding Password, Mode=TwoWay}" />
+                </b:Interaction.Behaviors>
+            </PasswordBox>
 
             <Button
                 HorizontalAlignment="Center" Margin="0,20,0,20"

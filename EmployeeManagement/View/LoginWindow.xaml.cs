@@ -9,8 +9,8 @@ namespace EmployeeManagement.View;
 /// </summary>
 public partial class LoginWindow
 {
-    public LoginWindow() => InitializeComponent();
-
-    private void PasswordChanged(object sender, RoutedEventArgs e) =>
-        (DataContext as LoginViewModel)!.Password = ((PasswordBox)sender).Password;
+    public LoginWindow()
+    {
+        InitializeComponent();
+    }
 }

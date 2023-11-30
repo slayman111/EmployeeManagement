@@ -4,7 +4,93 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:EmployeeManagement.View"
+    xmlns:viewModel="clr-namespace:EmployeeManagement.ViewModel"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d"
-    Height="450" Width="800">
-    <Grid />
+    Height="650" Width="500">
+
+    <Window.DataContext>
+        <viewModel:NewEmployeeViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.ColumnSpan="2"
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+            Text="Добавить сотрудника"
+            TextAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="White"
+            Background="{StaticResource PrimaryHueLightBrush}" />
+
+        <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Center">
+            <TextBox
+                FontSize="18"
+                materialDesign:HintAssist.Hint="ФИО (через пробел)"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding FullName}"
+                VerticalAlignment="Center" />
+
+            <ComboBox
+                FontSize="18"
+                SelectedItem="{Binding SelectedSpecialization}"
+                ItemsSource="{Binding Specializations}"
+                DisplayMemberPath="Name"
+                Style="{StaticResource MaterialDesignFilledComboBox}"
+                Margin="0,20,0,0"
+                materialDesign:HintAssist.Hint="Должность" />
+
+            <TextBox
+                FontSize="18"
+                Margin="0,20,0,0"
+                materialDesign:HintAssist.Hint="СНИЛС"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding InsuranceNumber}"
+                VerticalAlignment="Center" />
+
+            <TextBox
+                FontSize="18"
+                Margin="0,20,0,0"
+                materialDesign:HintAssist.Hint="Номер мед. книжки"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding MedBookNumber}"
+                VerticalAlignment="Center" />
+
+            <TextBox
+                FontSize="18"
+                Margin="0,20,0,0"
+                materialDesign:HintAssist.Hint="Номер трудовой"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding EmploymentBookNumber}"
+                VerticalAlignment="Center" />
+
+            <TextBox
+                FontSize="18"
+                Margin="0,20,0,0"
+                materialDesign:HintAssist.Hint="Заработная плата"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding Salary}"
+                VerticalAlignment="Center" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20">
+                <Button
+                    Style="{StaticResource MaterialDesignFlatLightBgButton}"
+                    Command="{Binding OpenDashboardWindowCommand}"
+                    Content="Назад"
+                    Width="180"
+                    Margin="0,0,25,0" />
+                <Button
+                    Style="{StaticResource MaterialDesignFlatLightBgButton}"
+                    Command="{Binding AddEmployeeCommand}"
+                    Content="Добавить"
+                    Width="180"
+                    IsDefault="True" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
 </local:BaseWindow>
