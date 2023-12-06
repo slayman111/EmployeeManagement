@@ -69,12 +69,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Grid.Column="1">
+                        <StackPanel>
                             <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}">
                                 <TextBlock.Text>
                                     <MultiBinding StringFormat="{}{0} {1} {2}">
