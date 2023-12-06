@@ -93,7 +93,7 @@ public partial class EmployeeDbContext : DbContext
 
             entity.HasOne(d => d.Employee).WithMany(p => p.WorkingShifts)
                 .HasForeignKey(d => d.EmployeeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("WorkingShift_Employee_Id_fk");
         });
 
