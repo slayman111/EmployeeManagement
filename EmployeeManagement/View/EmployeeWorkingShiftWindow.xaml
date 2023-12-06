@@ -72,37 +72,54 @@
         </ListView>
 
         <StackPanel Grid.Column="1" Grid.Row="2" Margin="10">
-            <DatePicker
-                FontSize="18"
-                materialDesign:HintAssist.Hint="Дата"
-                materialDesign:TextFieldAssist.HasClearButton="True"
-                SelectedDate="{Binding SelectedDate}"
-                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+            <materialDesign:Card Background="{StaticResource PrimaryHueLightBrush}">
+                <StackPanel Margin="10">
+                    <TextBlock FontSize="18" Foreground="White"
+                        Text="{Binding SelectedEmployee.Specialization.Name, StringFormat=Должность: {0}}" />
+                    <TextBlock FontSize="18" Foreground="White"
+                        Text="{Binding SelectedEmployee.InsuranceNumber, StringFormat=Страховой полис: {0}}" />
+                    <TextBlock FontSize="18" Foreground="White"
+                        Text="{Binding SelectedEmployee.MedBookNumber, StringFormat=Номер мед. книжки: {0}}" />
+                    <TextBlock FontSize="18" Foreground="White"
+                        Text="{Binding SelectedEmployee.EmploymentBookNumber, StringFormat=Номер трудовой: {0}}" />
+                    <TextBlock FontSize="18" Foreground="White"
+                        Text="{Binding SelectedEmployee.Salary, StringFormat=Зарплата: {0} руб.}" />
+                </StackPanel>
+            </materialDesign:Card>
 
-            <TextBox
-                FontSize="18"
-                Margin="0,20,0,0"
-                materialDesign:HintAssist.Hint="Отработанные часы"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                Text="{Binding Hours}"
-                VerticalAlignment="Center" />
+            <StackPanel>
+                <DatePicker
+                    FontSize="18"
+                    materialDesign:HintAssist.Hint="Дата"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    SelectedDate="{Binding SelectedDate}"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
 
-            <TextBox
-                FontSize="18"
-                Margin="0,20,0,0"
-                materialDesign:HintAssist.Hint="Примечание"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                Text="{Binding Note}"
-                VerticalAlignment="Center" />
+                <TextBox
+                    FontSize="18"
+                    Margin="0,20,0,0"
+                    materialDesign:HintAssist.Hint="Отработанные часы"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    Text="{Binding Hours}"
+                    VerticalAlignment="Center" />
 
-            <Button
-                HorizontalAlignment="Right"
-                Margin="0,20,0,20"
-                Style="{StaticResource MaterialDesignFlatLightBgButton}"
-                Command="{Binding AddWorkingShiftCommand}"
-                Content="Добавить"
-                Width="180"
-                IsDefault="True" />
+                <TextBox
+                    FontSize="18"
+                    Margin="0,20,0,0"
+                    materialDesign:HintAssist.Hint="Примечание"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    Text="{Binding Note}"
+                    VerticalAlignment="Center" />
+
+                <Button
+                    HorizontalAlignment="Right"
+                    Margin="0,20,0,20"
+                    Style="{StaticResource MaterialDesignFlatLightBgButton}"
+                    Command="{Binding AddWorkingShiftCommand}"
+                    Content="Добавить"
+                    Width="180"
+                    IsDefault="True" />
+            </StackPanel>
         </StackPanel>
 
         <Button
